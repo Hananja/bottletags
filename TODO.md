@@ -1,3 +1,3 @@
-- write config changes to db (see `config_site.tpl`)
+- dismiss alert for config save after changing any input (see dismiss_alert.js)
 - insert scanning results
 - finish list view

@@ -8,7 +8,16 @@ def config_default(name, value):
 
 
 def config_get(name):
-    return Config.select(Config.q.name == name).value
+    query = Config.select(Config.q.name == name)
+    if query.count() > 0:
+        return query.getOne().value
+    else:
+        return None
+
+
+def config_set(name, value):
+    query = Config.select(Config.q.name == name)
+    query.getOne().value = value
 
 
 def init_database(filename=os.path.abspath('data.db')):
@@ -19,7 +28,9 @@ def init_database(filename=os.path.abspath('data.db')):
     Entry.createTable(ifNotExists=True)
     Config.createTable(ifNotExists=True)
 
+    # every config item needs to be defined here with a default value
     config_default('scan_path', '/srv/recordings')
+    config_default('scan_suffix', '.mp3')
 
 
 class Entry(sqlobj.SQLObject):
