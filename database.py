@@ -2,6 +2,15 @@ import sqlobject as sqlobj
 import os
 
 
+def config_default(name, value):
+    if Config.select(Config.q.name == name).count() < 1:
+        Config(name=name, value=value)
+
+
+def config_get(name):
+    return Config.select(Config.q.name == name).value
+
+
 def init_database(filename=os.path.abspath('data.db')):
     db_filename = os.path.abspath('data.db')
     connection_string = 'sqlite:' + db_filename
@@ -9,6 +18,8 @@ def init_database(filename=os.path.abspath('data.db')):
     sqlobj.sqlhub.processConnection = connection
     Entry.createTable(ifNotExists=True)
     Config.createTable(ifNotExists=True)
+
+    config_default('scan_path', '/srv/recordings')
 
 
 class Entry(sqlobj.SQLObject):

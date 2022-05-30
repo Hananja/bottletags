@@ -1,1 +1,3 @@
-- next: `recording_list.tpl`
+- write config changes to db (see `config_site.tpl`)
+- insert scanning results
+- finish list view
