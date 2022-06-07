@@ -31,6 +31,7 @@ def init_database(filename=os.path.abspath('data.db')):
     # every config item needs to be defined here with a default value
     config_default('scan_path', '/srv/recordings')
     config_default('scan_suffix', '.mp3')
+    config_default('default_album', 'Sermon')
 
 
 class Entry(sqlobj.SQLObject):
@@ -42,6 +43,7 @@ class Entry(sqlobj.SQLObject):
     public_protocol = sqlobj.EnumCol(enumValues=["true", "false", "unknown"])
     protocol_date = sqlobj.DateCol()
     public = sqlobj.BoolCol()
+    filename = sqlobj.StringCol()
 
 
 class Config(sqlobj.SQLObject):
