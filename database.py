@@ -32,6 +32,8 @@ def init_database(filename=os.path.abspath('data.db')):
     config_default('scan_path', '/srv/recordings')
     config_default('scan_suffix', '.mp3')
     config_default('default_album', 'Sermon')
+    config_default('title_prefix', 'Sermon:')
+    config_default('default_comment', 'no comment')
 
 
 class Entry(sqlobj.SQLObject):
@@ -39,11 +41,13 @@ class Entry(sqlobj.SQLObject):
     title = sqlobj.StringCol()
     speaker = sqlobj.StringCol()
     album = sqlobj.StringCol()
-    public_speaker = sqlobj.EnumCol(enumValues=["true", "false", "unknown"])
-    public_protocol = sqlobj.EnumCol(enumValues=["true", "false", "unknown"])
+    public_speaker = sqlobj.BoolCol()
+    public_protocol = sqlobj.BoolCol()
     protocol_date = sqlobj.DateCol()
-    public = sqlobj.BoolCol()
+    published = sqlobj.BoolCol()
     filename = sqlobj.StringCol()
+    file_present = sqlobj.BoolCol()
+
 
 
 class Config(sqlobj.SQLObject):

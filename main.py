@@ -8,22 +8,30 @@ import database as db
 
 
 def scan_path(path, suffix):
+    filenames = set()
     for filename in os.listdir(path):
         if filename.endswith(suffix):
+            filenames.add(filename)
             if db.Entry.select(db.Entry.q.filename == filename).count() == 0:
                 recording_date = None
                 # try ro read recording date from beginning of filename
                 try:
-                    recording_date = dateutil.parser.parse(filename, fuzzy=True)
+                    recording_date = dateutil.parser.parse(filename[:len('YYYY-MM-DD')], fuzzy=True).date()
                 except ValueError as e:
                     logging.info(f"invalid date found in {filename}: {e}")
 
                 # insert into database (ignore tags, cause they usually are not there)
                 entry = db.Entry(filename=filename,
                                  album=db.config_get('default_album'),
-                                 recording_date=recording_date
+                                 recording_date=recording_date,
+                                 title=None, speaker=None,
+                                 public_speaker=None, public_protocol=None, protocol_date=None,
+                                 published=False, file_present=True
                                  )
                 logging.info(f"imported: {entry.filename} with recording date {recording_date}")
+    for entry in db.Entry.select():
+        if entry.filename not in filenames:
+            entry.file_present = False
 
 
 @btl.route('/')
@@ -45,7 +53,7 @@ def config_site():
     if btl.request.method == "POST":
         for item in btl.request.forms:
             actual_value = db.config_get(item)
-            new_value = btl.request.forms[item]
+            new_value = getattr(btl.request.forms, item) # see https://stackoverflow.com/a/27434063
             if actual_value:
                 if actual_value != new_value:
                     db.config_set(item, new_value)

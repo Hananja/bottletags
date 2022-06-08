@@ -1,6 +1,7 @@
-- dismiss alert for config save after changing any input (see dismiss_alert.js)
-- insert scanning results
 - finish list view
+- build edit form
+- build delete configmation page
+- build download route with path from config
 
 # roles (auth system)
 
@@ -11,3 +12,7 @@
 
 # Idea
 cleanup after some days / allow delete for which roles?
+
+# Long Term
+
+* `i18n`
