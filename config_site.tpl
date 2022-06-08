@@ -5,7 +5,7 @@
 % end
 <form method="POST" action="config">
   <dl class="row">
-      % for num, item in enumerate(items):
+      % for num, item in enumerate(sorted(items, key=lambda i:i.name)):
       <dt class="col-sm-3"><label for="intxt_{{num}}">{{item.name}}</label></dt>
       <dd class="col-sm-9"><input style="width: 100%;" type="text" id="intxt_{{num}}"
                                   name="{{item.name}}" value="{{item.value}}"
