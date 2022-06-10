@@ -8,7 +8,16 @@ def config_default(name, value):
 
 
 def config_get(name):
-    return Config.select(Config.q.name == name).value
+    query = Config.select(Config.q.name == name)
+    if query.count() > 0:
+        return query.getOne().value
+    else:
+        return None
+
+
+def config_set(name, value):
+    query = Config.select(Config.q.name == name)
+    query.getOne().value = value
 
 
 def init_database(filename=os.path.abspath('data.db')):
@@ -19,7 +28,12 @@ def init_database(filename=os.path.abspath('data.db')):
     Entry.createTable(ifNotExists=True)
     Config.createTable(ifNotExists=True)
 
+    # every config item needs to be defined here with a default value
     config_default('scan_path', '/srv/recordings')
+    config_default('scan_suffix', '.mp3')
+    config_default('default_album', 'Sermon')
+    config_default('title_prefix', 'Sermon:')
+    config_default('default_comment', 'no comment')
 
 
 class Entry(sqlobj.SQLObject):
@@ -27,10 +41,13 @@ class Entry(sqlobj.SQLObject):
     title = sqlobj.StringCol()
     speaker = sqlobj.StringCol()
     album = sqlobj.StringCol()
-    public_speaker = sqlobj.EnumCol(enumValues=["true", "false", "unknown"])
-    public_protocol = sqlobj.EnumCol(enumValues=["true", "false", "unknown"])
+    public_speaker = sqlobj.BoolCol()
+    public_protocol = sqlobj.BoolCol()
     protocol_date = sqlobj.DateCol()
-    public = sqlobj.BoolCol()
+    published = sqlobj.BoolCol()
+    filename = sqlobj.StringCol()
+    file_present = sqlobj.BoolCol()
+
 
 
 class Config(sqlobj.SQLObject):
