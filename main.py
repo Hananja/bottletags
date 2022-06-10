@@ -46,6 +46,11 @@ def recording_list():
     return btl.template("recording_list", items=items)
 
 
+@btl.route('/edit/<recid:int>')
+def edit_entry(recid : int):
+    item = db.Entry.get(recid)
+    return btl.template("edit_form", item=item)
+
 @btl.route('/config')
 @btl.route('/config', method="POST")
 def config_site():

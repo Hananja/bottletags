@@ -18,9 +18,9 @@
             </div>
             <div class="col text-end">
                 <div class="btn-group" role="group" aria-label="Actions for entry">
-                    <a href="download/{{item.filename}}" role="button" class="btn btn-success">Download</a>
-                    <a href="edit/{{item.id}}" role="button" class="btn btn-warning">Edit</a>
-                    <a href="delete/{{item.id}}" role="button" class="btn btn-danger">Delete</a>
+                    <a href="download/{{item.filename}}" role="button" class="btn btn-outline-primary">Download</a>
+                    <a href="edit/{{item.id}}" role="button" class="btn btn-outline-secondary">Edit</a>
+                    <a href="delete/{{item.id}}" role="button" class="btn btn-outline-danger">Delete</a>
                 </div>
             </div>
         </div>
