@@ -13,9 +13,9 @@
       % end
 </dl>
   <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-    <input class="btn btn-primary" type="submit" value="save"/>
-    <input class="btn btn-danger" type="reset" value="reset"/>
     <a href="/" class="btn btn-secondary">cancel</a>
+    <input class="btn btn-danger" type="reset" value="reset"/>
+    <input class="btn btn-primary" type="submit" value="save"/>
 </div>
 </form>
 

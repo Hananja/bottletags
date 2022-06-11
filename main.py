@@ -26,7 +26,8 @@ def scan_path(path, suffix):
                                  recording_date=recording_date,
                                  title=None, speaker=None,
                                  public_speaker=None, public_protocol=None, protocol_date=None,
-                                 published=False, file_present=True
+                                 published=False, file_present=True,
+                                 comment=db.config_get('default_comment')
                                  )
                 logging.info(f"imported: {entry.filename} with recording date {recording_date}")
     for entry in db.Entry.select():

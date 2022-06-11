@@ -1,5 +1,8 @@
 - finish list view
+  - missing file andonline should be visible
+  - download should be deactivated if file missing
 - build edit form
+  - backend with checks
 - build delete configmation page
 - build download route with path from config
 

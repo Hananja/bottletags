@@ -1,3 +1,4 @@
+import sqlobject
 import sqlobject as sqlobj
 import os
 
@@ -47,6 +48,7 @@ class Entry(sqlobj.SQLObject):
     published = sqlobj.BoolCol()
     filename = sqlobj.StringCol()
     file_present = sqlobj.BoolCol()
+    comment = sqlobject.StringCol()
 
 
 
